@@ -1,6 +1,7 @@
 import { TextDocumentPositionParams, Hover, Event, TextDocuments, Connection, TextDocument } from "vscode-languageserver";
 import { BaseTranslate } from "./translate/translate";
-import { GoogleTranslate } from "./translate/GoogleTranslate";
+// import { GoogleTranslate } from "./translate/GoogleTranslate";
+import { TMTTranslate } from "./translate/TMTTranslate";
 import * as humanizeString from 'humanize-string';
 import { CommentParse, ICommentOption, ICommentBlock } from "./syntax/CommentParse";
 import { TextMateService } from "./syntax/TextMateService";
@@ -20,7 +21,7 @@ export class Comment {
     public onTranslate: Event<string>;
     constructor(extensions: ICommentOption, private _documents: TextDocuments, private _connection: Connection) {
         this._setting = { multiLineMerge: false, targetLanguage: extensions.userLanguage,concise: false };
-        this._translator = new GoogleTranslate();
+        this._translator = new TMTTranslate();
         this.onTranslate = this._translator.onTranslate;
         this._textMateService = new TextMateService(extensions.grammarExtensions, extensions.appRoot);
         //关闭文档或内容变更，移除缓存
